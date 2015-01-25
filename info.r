@@ -1,0 +1,5 @@
+name = "You Yi"
+SID = "24333111"
+email = "youyi316@berkeley.edu"
+github_name = "youyi316"
+status = "enrolled"
