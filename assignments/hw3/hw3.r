@@ -12,10 +12,10 @@
 # First of all you need to install the ggplot2 package.
 # You only need to do that once, so the install command is commented out 
 # here to make sure you don't run it multiple times but make sure to install it once:
-# install.packages("ggplot2")
+#install.packages("ggplot2")
 library("ggplot2")
 # And one more package:
-# install.packages("plyr")
+#install.packages("plyr")
 library("plyr")
 
 # Before getting started you should aquaint yourself with the ggplot2 package.
@@ -68,13 +68,15 @@ load("WR1500MeterMen.rda")
 # So a time of 70 is really 4 minutes and 10 seconds.
 
 # Q1a. How many world records does this data frame contain?
-#
+
+n.wr <- nrow(wr1500m)
 # n.wr <- your code here
 
 # Q1b. Use R commands to find out who currently holds the world
 # record in the men's 1500 meter.
- 
-# wr.name <- your code here
+wr.name <- wr1500m[which.min(wr1500m$times), 4] 
+
+
 
 # Let's look at the relationship between date and time.
 # Q1c. What type of variable (numeric (continuous or discrete), nominal ordinal)
@@ -95,8 +97,9 @@ load("WR1500MeterMen.rda")
 
 # times_sec <- your code here
 # wr1500m <- your code here
-
-# Your ggplot / qplot command:
+times_sec <- (wr1500m$times)+180
+wr1500m$times_sec <- times_sec
+ggplot(wr1500m, aes(x=wr1500m$year, y=wr1500m$times_sec))+ geom_step() 
 
 
 # Q2b. Redo the plot using a date that incorporates the month as 
@@ -106,11 +109,12 @@ load("WR1500MeterMen.rda")
 # Create a new variable, new_year, with the date in this format but
 # first find and set all missing months to 0.5
 # Add new_year to the dataframe.
+wr1500m$month[is.na(wr1500m$month)] <- 6
+new_year <- (wr1500m$year)+(wr1500m$month)/12
+wr1500m$new_year <- new_year
+qplot(wr1500m$new_year, wr1500m$times_sec, data=wr1500m, geom="step")
 
-# new_year <- your code here
-# wr1500m <- your code here
 
-# Your qplot command:
 
 
 # Q3. The current world record was set in 1998. If we want to
@@ -121,8 +125,13 @@ load("WR1500MeterMen.rda")
 # Hint: look at xlim() and theme().
 
 # wr_1998 <- your code here
+###################################################### Your ggplot command:
 
-# Your ggplot command:
+wr_1998n <- wr1500m[which(wr1500m$year == 1998), 6]
+v <- ggplot(wr1500m, aes(x=wr1500m$new_year, y=wr1500m$times_sec))+ 
+      geom_step()+ xlim (1892, 2015) + 
+      geom_segment(aes(x=1998, y= wr_1998n, xend=2015, yend=wr_1998n))
+
 
 # Q4. There are two times where the record stood for several
 # years - in 1944 and 1998. Let's make it easier to see these
@@ -135,18 +144,25 @@ load("WR1500MeterMen.rda")
 # of wr1500m$athlete to access it.
 # Hint: geom_vline(), annotate().
 
+wr_1944 <- wr1500m[which(wr1500m$year == 1944), 4]
+wr_1998 <- wr1500m[which(wr1500m$year == 1998), 4]
+v+geom_vline(xintercept= 1944, colour="green") + geom_vline(xintercept= 1998, colour="green")+ 
+      annotate("text", x = 1940, y = 260, label=wr_1944, colour="blue")+ 
+      annotate("text", x = 1998, y = 260, label=wr_1998, colour="blue")
 
-# wr_1944 <- your code here
-
-# Your ggplot command
-
-
+ 
 # Q5. Now we are ready to add other contextual information.
 # Remake the plot as before but now adding axis labels and a title.
 # This is the FINAL version of the plot of world record times.
 # Hint : labs()
 
-# Your ggplot commands
+
+p <- v+geom_vline(xintercept= 1944, colour="green") + 
+      geom_vline(xintercept= 1998, colour="green")+ 
+      annotate("text", x = 1940, y = 260, label=wr_1944, colour="blue")+ 
+      annotate("text", x = 1998, y = 260, label=wr_1998, colour="blue")
+p+ labs(title = "world record in the 1500 meter men's race")+ xlab("Year")+ ylab("Time in seconds")
+
 
 
 ################################
@@ -180,6 +196,7 @@ load("SummerOlympics2012Ctry.rda")
 
 # To begin, make a plot of GDP against population. Your ggplot command:
 
+ggplot(SO2012Ctry, aes(x=SO2012Ctry$pop, y=SO2012Ctry$GDP))+ geom_point()
 
 #Q7. Let's examine GDP per person (create this new variable yourself)
 # and population.
@@ -188,11 +205,10 @@ load("SummerOlympics2012Ctry.rda")
 # Do not log the variables directly.
 # Hint: use the options log and size.
 
-# GDP_per_person <- your code here
-# SO2012Ctry <- your code here
-# symbols( your code here )
-
-# Your ggplot command
+GDP_per_person <- SO2012Ctry$GDP/SO2012Ctry$pop
+SO2012Ctry <- data.frame(SO2012Ctry,GDP_per_person)
+ggplot(SO2012Ctry, aes(x=SO2012Ctry$pop, y=SO2012Ctry$GDP_per_person))+ 
+      geom_point(aes(size=SO2012Ctry$Total))+coord_trans(x="log10", y="log10")
 
 
 # We skip Q8 this time the plot above is already fine.
@@ -202,8 +218,21 @@ load("SummerOlympics2012Ctry.rda")
 # title, and label 5 of the more interesting points
 # with the country name.
 # Hint: use annotate(), geom_text(), maybe other functions.
+p2 <- ggplot(SO2012Ctry, aes(x=SO2012Ctry$pop, y=SO2012Ctry$GDP_per_person))+ 
+      geom_point(aes(size=SO2012Ctry$Total))+coord_trans(x="log10", y="log10")
 
-# Your ggplot command:
+top5 <- as.character(SO2012Ctry$Country[order( SO2012Ctry$Total, decreasing = TRUE)[1:5]])
+
+p3<- p2+labs(title = "Won medals vs. GDP per person and Population")+ xlab("Total population")+ ylab("GDP per person")
+p3
+p4<- p3+annotate("text", x=(SO2012Ctry$pop[SO2012Ctry$Country == top5[1]]),y=20000+(SO2012Ctry$GDP_per_person[SO2012Ctry$Country == top5[1]]),label=top5[1],col="blue")+
+             annotate("text", x=(SO2012Ctry$pop[SO2012Ctry$Country == top5[2]]),y=(SO2012Ctry$GDP_per_person[SO2012Ctry$Country == top5[2]]),label=top5[2],col="blue")+
+             annotate("text", x=(SO2012Ctry$pop[SO2012Ctry$Country == top5[3]]),y=(SO2012Ctry$GDP_per_person[SO2012Ctry$Country == top5[3]]),label=top5[3],col="blue")+
+             annotate("text", x=(SO2012Ctry$pop[SO2012Ctry$Country == top5[4]]),y=-20000+(SO2012Ctry$GDP_per_person[SO2012Ctry$Country == top5[4]]),label=top5[4],col="blue")+
+             annotate("text", x=(SO2012Ctry$pop[SO2012Ctry$Country == top5[5]]),y=(SO2012Ctry$GDP_per_person[SO2012Ctry$Country == top5[5]]),label=top5[5],col="blue")
+p4
+
+
 
 ######################################
 # PLOT 3.
@@ -215,7 +244,7 @@ library("maps")
 # Hint: look at map_data() and geom_polygon() in the ggplot2 manual.
 
 # Your ggplot commands:
-
+ggplot()+geom_polygon(aes(long, lat, group=group), fill="light grey", data=map_data("world"))
 
 # Q11. Now add circles to the map where
 # the circles are proportional in area to the number of medals
@@ -226,8 +255,10 @@ library("maps")
 # Hint: look at the function [geom_point()] and the parameters [aes] and [size]
 
 # wonMedal <- your code here
+wonMedal <- SO2012Ctry[SO2012Ctry$Total > 0,]
+q1 <- ggplot()+geom_polygon(aes(long, lat, group=group), fill="grey40", data=map_data("world"))
+q1+geom_point(aes(wonMedal$longitude, wonMedal$latitude, size=wonMedal$Total),col="gold")
 
-# Your ggplot commands here.
 
 ## Not needed
 #Q12. Remake the plot and fill ......
@@ -257,8 +288,10 @@ load("London2012ALL_ATHLETES.rda")
 # Sex by Sport.
 # Hint: Find the geom_*() function that makes a barplot then
 # find the option that allows you to put bars side-by-side (study the manual page)
-
 # make barplot with ggplot
+
+athTab <- table(athletes$Sex, athletes$Sport)
+ggplot(athletes, aes(x=athletes$Sport, fill=Sex)) + geom_bar(position=position_dodge()) 
 
 
 ## Skip this question...
@@ -272,7 +305,11 @@ load("London2012ALL_ATHLETES.rda")
 # that allows you to set the angle.
 # Lastly, add a title to the plot.
 
-# Your ggplot commands
+
+
+pp <- ggplot(athletes, aes(x=athletes$Sport, fill=Sex)) + geom_bar(position=position_dodge())+
+      labs(title="Male vs. Female athletes in different sports")+
+      theme(axis.text.x=element_text(angle=90))
 
 
 # This was the final version of the 4th plot.
@@ -287,17 +324,19 @@ load("rainfallCO.rda")
 
 # Create a variable 
 # max.rain : a vector of length 5 with the maximum rainfall at each station
+max.rain <- sapply(rain, max)
 
 # Create a variable 
 # mean.rain : a vector of length 5 with the average rainfall at each station
-
+mean.rain <- sapply(rain, mean)
 
 # Create a variable 
 # sd.rain : a vector of length 5 with the standard deviation of the rainfall at each station
+sd.rain <- sapply(rain, sd)
 
 # Create a variable 
 # n1989.rain : a vector of length 5 with the number of measurements at each station in the year 1989 (use [day])
 
-
+n1989.rain <- sapply(day, function(x) sum(x >= 1989 & x<1990))
 
 
