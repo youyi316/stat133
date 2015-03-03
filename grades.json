@@ -1,0 +1,23 @@
+{
+    "login": "youyi316", 
+    "url": "git@github.com:youyi316/stat133.git", 
+    "name": "You Yi", 
+    "email": "youyi316@berkeley.edu", 
+    "github_name": "youyi316", 
+    "status": "enrolled", 
+    "grades": {
+        "hw1": {
+            "note": "", 
+            "hash": "70caa59f9cf90bb457baacc1a1a8bd1304f4d525", 
+            "earned": 20, 
+            "possible": 20, 
+            "penalty": 0, 
+            "parts": {
+                "hw1": {
+                    "possible": 20, 
+                    "earned": 20
+                }
+            }
+        }
+    }
+}
