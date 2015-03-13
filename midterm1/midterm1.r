@@ -2,12 +2,15 @@
 # required to perform the following tasks. The dataset includes data for countries in 2012.
 
 # your code here
+load("SummerOlympics2012Ctry.rda")
+
 
 # calculate the mean and the maximum of GDP in the dataset. Store these as the
 # variables <mean.GDP> and <max.GDP> respectively.
+mean.GDP<-mean(SO2012Ctry$GDP)
+max.GDP<- max(SO2012Ctry$GDP)
 
-# mean.GDP <- your code here
-# max.GDP <- your code here
+
 
 
 
@@ -16,7 +19,9 @@
 # <female.prop>. Note that this should be a numeric vector with length equal to
 # the number of observations in the dataset.
 
-# female.prop <- your code here
+female.prop <- SO2012Ctry$Female/((SO2012Ctry$Male)+(SO2012Ctry$Female))
+
+
 
 
 
@@ -26,8 +31,8 @@
 # 1) Countries with 0 bronze medals: <subset.nobronze>
 # 2) Countries with more than or exactly 3 bronze medals: <subset.threebronze>
 
-# subset.nobronze <- your code here
-# subset.threebronze <- your code here
+subset.nobronze <- SO2012Ctry[which(SO2012Ctry$Bronze == 0),9]
+subset.threebronze <- SO2012Ctry[which(SO2012Ctry$Bronze >= 3),9]
 
 
 
@@ -35,8 +40,8 @@
 # For each of your subsets, create a vector giving the population size. Store
 # these as variables <subset.nobronze.pop> and <subset.threebronze.pop>.
 
-# subset.nobronze.pop <- your code here
-# subset.threebronze.pop <- your code here
+subset.nobronze.pop <- SO2012Ctry[which(SO2012Ctry$Bronze == 0),7]
+subset.threebronze.pop <- SO2012Ctry[which(SO2012Ctry$Bronze >= 3),7]
 
 
 
@@ -55,7 +60,13 @@
 # whose values in <GDPPP> are strictly less that <GDPPP.cutoff>.
 
 medpopByGDPPP <- function(GDPPP.cutoff, GDPPP, pop){
-  # your code here  
+  if (GDPPP >= GDPPP.cutoff)
+    stop("GDPPP greater than GDPPP.cutoff")
+  if (GDPPP <= GDPPP.cutoff) {
+    median(pop)
+  }
+  median.pop=median(pop)
+  return(median.pop)
 }
 
 
@@ -67,5 +78,18 @@ medpopByGDPPP <- function(GDPPP.cutoff, GDPPP, pop){
 # 3) plotting character set to 10
 # 4) a red horizontal line at female proportion of 0.50.
 
+Total.athletes <- ((SO2012Ctry$Male)+(SO2012Ctry$Female))
+graph = plot(Total.athletes, female.prop, main="Proportion of female athletes vs Total # athletes", 
+     xlab="Total # athletes", ylab="Proportion of female athletes")
+graph.new <- graph+abline(h = 0.5, col="red" )
+
+
+#Ambiguious: plotting character set to 10, if it means the size of the point
+graph = plot(Total.athletes, female.prop, main="Proportion of female athletes vs Total # athletes", 
+             xlab="Total # athletes", ylab="Proportion of female athletes", cex=10)
+
+#Ambiguious: plotting character set to 10, if it means the size of the title
+graph = plot(Total.athletes, female.prop, main="Proportion of female athletes vs Total # athletes", 
+             xlab="Total # athletes", ylab="Proportion of female athletes", cex.main=10)
 
 
