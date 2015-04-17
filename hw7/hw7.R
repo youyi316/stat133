@@ -158,25 +158,6 @@ for(i in 1:(n.speeches)){
 #> wordStem(c("national", "nationalistic", "nation"))
 #[1] "nation"      "nationalist" "nation"     
 
-##test:
-sentences <- "Applause The function returns the. stem of: each,  1/2 can't word 123"
-unlist(strsplit(sentences, "[[:space:]]+|[[:punct:]]+"))
-unlist(strsplit(sentences, "[ ]"))
-unlist(strsplit(as.character(a), "[,:.?!]"))
-
-sp = function(sentences) {
-words = strsplit(sentences, " ")
-words = strsplit(as.character(words), "[,:.?!]")
-return (words)
-}
-
-sp(sentences)
-
-gsub("[[:digit:]]+", "", sentences)
-a <- unlist(strsplit(sentences, " "))
-unlist(strsplit(sentences, " "))[!(unlist(strsplit(sentences, " ")))%in%""]
-sort(a, decreasing= FALSE)
-###
 
 
 speechToWords = function(sentences) {
