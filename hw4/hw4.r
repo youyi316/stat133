@@ -171,7 +171,7 @@ jackknifeVarEst <- function(x){
 
 # Note: this function calls the previous two functions.
 
-samplingVarEst <- function(x,B, type = "bootstrap"  ){
+samplingVarEst <- function(x,type = "bootstrap",B = 1000  ){
     if (type == "jackknife"){
       sampling.sigma.est = jackknifeVarEst(x)
       return (sampling.sigma.est)
