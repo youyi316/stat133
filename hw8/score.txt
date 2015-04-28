@@ -1,0 +1,3 @@
+genBootY: use tapply or for loop, don't cold type   -1
+
+Score:  19/20
