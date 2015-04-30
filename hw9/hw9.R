@@ -37,6 +37,14 @@ head(mtcars)
 
 # < your code here>
 
+
+model <- row.names(mtcars)
+mtcars$model <- model
+mtcars.new <- mtcars
+
+
+
+
 # Now make a bubble chart using the following instructions:
 # Use 'model', i.e. car model names as labels of bubbles;
 # Use 'disp' as x axis and 'mpg' as y axis;
@@ -46,11 +54,23 @@ head(mtcars)
 
 # optionlist <- < your code here>
 # bub <- gvisBubbleChart( < your code here >)
+bub <- gvisBubbleChart(Fruits, idvar="mtcars.new$model", xvar="mtcars.new$disp", yvar="mtcars.new$mpg",
+                           colorvar="mtcars.new$gear", sizevar="mtcars.new$hp",
+                           options=list(vAxis="{title:'mpg'}", hAxis='{title:'disp'}'))
+option = list???
 
 # Now plot your bubble chart output, 'bub', 
 # the chart will show up in a new tab in your web browser.
 
 # < your code here>
+
+plot(bub)
+
+
+
+
+
+
 
 ##### Motion Chart
 # For examples of motion chart, see: 
@@ -70,9 +90,12 @@ load("WorldBank.RData")
 
 # WorldDat <- < your code here>
 
+WorldDat <- WorldBank[,c("country","year","fertility.rate","life.expectancy","population","region")]
+
 # As you can see, there are missing values in this data frame.
 # Get rid of all rows with one or more NAs.
 
+WorldDat.new <- WorldDat[complete.cases(WorldDat),]
 # < your code here >
 
 # Now make the motion chart using <WorldDat>:
@@ -83,7 +106,11 @@ load("WorldBank.RData")
 # Notice that you can change theses vectors on the generated motion chart, 
 # for now just use the above instructions as default.
 
-# Motion <- gvisMotionChart( < your code here > )
+Motion <- gvisMotionChart(WorldDat.new, idvar="WorldDat.new$country", timevar="WorldDat.new$year",
+                          xvar="WorldDat.new$fertility.rate", yvar="WorldDat.new$life.expectancy",
+                          colorvar="WorldDat.new$region", sizevar="WorldDat.new$population")
 
+
+???error
 # Plot your motion chart. It should appear in your web browser. Play around with it!
 plot(Motion)

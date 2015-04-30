@@ -182,4 +182,10 @@ samplingVarEst <- function(x,B, type = "bootstrap"  ){
     }
 }
 
+food <- list (veg=c(“tomato”, “pepper”), fruit=c(“apple”, “banana”), count=c(1,2,3,4,5,6,7,8,9)) 
+food [[4]] >6
+fit <- lm(y~x)
+
+
+
 

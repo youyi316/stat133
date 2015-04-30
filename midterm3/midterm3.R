@@ -9,9 +9,10 @@
 #   <num.star>: an integer indicating how many elements of <chvec> contain the "*"
 #     symbol. For example: numStarElements(c('star', 'st*r', '***')) should return 2
 
+chvec=c('star', 'st*r', '***')
 
 numStarElements <- function(chvec){
-  a= grep("st[\\*]r", chvec)
+  a= grep("\\*", chvec)
   num.star=length(a)
   return(num.star)
 }
@@ -27,7 +28,7 @@ numStarElements <- function(chvec){
 
 numDigits <- function(chvec){
   a= strsplit(chvec, "")
-  b= grep("[[:digit:]]+", a)
+  b= grep("[[:digit:]]+", unlist(a))
   total=length(b)
   return(total)
 }
@@ -35,8 +36,8 @@ numDigits <- function(chvec){
 
 
 # Some test cases:
-# all.equal(numDigits("1z3p ! 21"), 4)
-# all.equal(numDigits("abcdefg"), 0)
+all.equal(numDigits("1z3p ! 21"), 4)
+all.equal(numDigits("abcdefg"), 0)
 
 
 
@@ -92,9 +93,11 @@ mostCommonLetter <- function(chvec){
   new.chvec = gsub("[[:punct:]]+", "", new.chvec)
   new.chvec = gsub("/", "", new.chvec)
   x = strsplit(new.chvec, "")
-  grep("a", x)
-  for a in a:z
-  nchar(x)
+  tab = table(unlist(x))
+  lettermax = max(tab)
+  letter = names(tab)[tab==max(tab)]
   return(letter)
 }
+
+
 

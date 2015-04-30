@@ -79,11 +79,12 @@ wr.name <- wr1500m[which.min(wr1500m$times), 4]
 # But do add 180 to the times so that they are accurate measurements in seconds,
 # store that in a new variable and add to the data frame.
 
+
 times_sec <- (wr1500m$times)+180
 wr1500m$times_sec <- times_sec
 # plot( your code here )
-plot( wr1500m$year, wr1500m$times, type="s" )
-
+plot(wr1500m$year, wr1500m$times, type="s")
+plot(wr1500m$year, wr1500m$times)
 
 
 # Q2b. Redo the plot using a date that incorporates the month as 
@@ -143,7 +144,8 @@ text(x=1990,y=240,labels=wr_1998,cex=1 ,col="blue")
 # This is the FINAL version of the plot of world record times.
 
 # put your final version of the plotting commands below.
-plot(wr1500m$new_year, wr1500m$times_sec, type="s", xlim = c(1892,2014), main="world record in the 1500 meter men's race", xlab="Year", ylab="Time in seconds")
+plot(wr1500m$new_year, wr1500m$times_sec, type="s", xlim = c(1892,2014), main="world record in the 1500 meter men's race", 
+     xlab="Year", ylab="Time in seconds")
 wr_1998 <- wr1500m[which(wr1500m$year == 1998), 6]
 lines (x=c(wr1500m[wr1500m$year == 1998, 7],2014), y= c(wr_1998, wr_1998))
 wr_1944 <- wr1500m[which(wr1500m$year == 1944), 4]
@@ -239,7 +241,7 @@ text(x=log(SO2012Ctry$pop[SO2012Ctry$Country == top5[5]]),y=1+log(SO2012Ctry$GDP
 # where the countries are filled with a light grey color.
 
 ## you only need to run these two lines once:
-install.packages("maps")
+#install.packages("maps")
 library("maps")
 map()
 world <- map( fill=TRUE, col= "light grey" )

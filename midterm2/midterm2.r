@@ -23,6 +23,8 @@ y<- function(y){
 
 }
 
+y = (x %% 10 == 0)
+
 
 # [1 pt]
 # Create [w], a random permutation of the numeric values of a deck of cards
@@ -47,6 +49,12 @@ m <- matrix(c(rexp(100, rate=3)), nrow=10, ncol=10, byrow=F)
 set.seed(71)
 l <- list(12, rpois(100, 5))
 ???????
+
+l = list()
+for(i in 1:12){
+  l = c(l, list(rpois(100, lambda=5)))
+}
+
 #l <- <your code here>
 
 
@@ -104,7 +112,6 @@ f4 <- subset(family, age==min(family$age))
 boxplot(iris$Sepal.Length~iris$Species)
 
 
-
 # [3 pts]
 # Make a scatterplot of petal width (y-axis) versus petal length (x-axis)
 # The axes labels should be "Petal Length" and "Petal Width",
@@ -123,7 +130,11 @@ iris$Colour[iris$Species=="setosa"]="red"
 iris$Colour[iris$Species=="versicolor"]="blue"
 iris$Colour[iris$Species=="virginica"]="green"
 orderdata <- order(table(iris),decreasing=F)
-plot(iris$Petal.Length, iris$Petal.Width, xlab='Petal Length', ylab='Petal Width', col=iris$Colour)
+plot(iris$Petal.Length/iris$Petal.Width, xlab='Petal Length', ylab='Petal Width', col=iris$Colour)
+
+
+plot(x=1:150, y=iris$Sepal.Length/iris$Petal.Length, col=c(rep("red",50),rep("yellow",50),rep("grey",50)))
+=======
 
 
 ##  apply statements
@@ -138,6 +149,15 @@ load("Cache500.rda")
 # corresponding vector in the list Cache500
 
 first.cache <- sapply(Cache500)
+????
+
+
+Try = 1:500
+for(i in 1:500){
+  Try[i]=Cache500[[i]][1]
+}
+first.cache = Try
+
 
 
 # [3 pts]
@@ -161,7 +181,18 @@ sd.cache <- sapply(Cache500,sd)
 # the mean of Cache500[[i]] IF it has 50 or more entries.
 # NA IF Cache500[[i]] has less than 50 entries.
 
-mean.long.cache <- <your code here>
+  
+  mean.long.cache.function = function(Cache500){
+    sth = 1:500
+    for(i in 1:500){
+      if(length(Cache500[[i]])>=50){
+        sth[i]=mean(Cache500[[i]])
+      }else{
+        sth[i]=NA
+      }
+    }
+    return(sth)
+  }
 
 
 
