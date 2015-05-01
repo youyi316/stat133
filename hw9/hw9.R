@@ -37,12 +37,9 @@ head(mtcars)
 
 # < your code here>
 
-
 model <- row.names(mtcars)
 mtcars$model <- model
 mtcars.new <- mtcars
-
-
 
 
 # Now make a bubble chart using the following instructions:
@@ -54,10 +51,12 @@ mtcars.new <- mtcars
 
 # optionlist <- < your code here>
 # bub <- gvisBubbleChart( < your code here >)
-bub <- gvisBubbleChart(Fruits, idvar="mtcars.new$model", xvar="mtcars.new$disp", yvar="mtcars.new$mpg",
-                           colorvar="mtcars.new$gear", sizevar="mtcars.new$hp",
-                           options=list(vAxis="{title:'mpg'}", hAxis='{title:'disp'}'))
-option = list???
+optionlist <- list(title="Bubble Chart", vAxis="{title: 'mpg'}", hAxis="{title: 'disp'}")
+bub <- gvisBubbleChart(mtcars.new, idvar="model", xvar="disp", 
+                       yvar="mpg",colorvar="gear", sizevar="hp",
+                       options=optionlist)
+
+
 
 # Now plot your bubble chart output, 'bub', 
 # the chart will show up in a new tab in your web browser.
@@ -65,10 +64,6 @@ option = list???
 # < your code here>
 
 plot(bub)
-
-
-
-
 
 
 
@@ -106,11 +101,10 @@ WorldDat.new <- WorldDat[complete.cases(WorldDat),]
 # Notice that you can change theses vectors on the generated motion chart, 
 # for now just use the above instructions as default.
 
-Motion <- gvisMotionChart(WorldDat.new, idvar="WorldDat.new$country", timevar="WorldDat.new$year",
-                          xvar="WorldDat.new$fertility.rate", yvar="WorldDat.new$life.expectancy",
-                          colorvar="WorldDat.new$region", sizevar="WorldDat.new$population")
+Motion <- gvisMotionChart(WorldDat.new, idvar="country",
+                          xvar="fertility.rate", yvar="life.expectancy",  timevar="year",
+                          colorvar="region", sizevar="population")
 
 
-???error
 # Plot your motion chart. It should appear in your web browser. Play around with it!
 plot(Motion)
