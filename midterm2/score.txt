@@ -1,0 +1,6 @@
+w: replacement should be FALSE  -1
+t: wrong table  -1
+first.cache: use apply functions  -1
+mean.long.cache: no variable defined  -3
+
+Score: 27/33
