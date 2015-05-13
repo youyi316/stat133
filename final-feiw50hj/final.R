@@ -72,8 +72,8 @@ for(i in 1:10){y[[i]]=seq(i,1000,by=i)}
 # Hint: you can e.g. use [sample()], you will need to set all 4 arguments
 set.seed(42)
 z <- c("TRUE","FALSE")
-  sample(z, 5000, replace = TRUE, prob = 0.3)
-???????????????????
+#  sample(z, 5000, replace = TRUE, prob = 0.3)
+#???????????????????
   
 # [1 pt]
 # Create [v], a numeric vector with the results of 100 rolls of a dice,
@@ -154,7 +154,7 @@ t2 <- table(infants$smoke[infants$ed=="College"], infants$number[infants$ed=="Co
 # that are 35 years or older and mothers that are under 35 years of age [use column age for mothers age]
 #  
 bdiff <- mean(infants$bwt[infants$age>="35"])-mean(infants$bwt[infants$age<"35"])
-???????????????????????????
+#???????????????????????????
 
 #################################################################
 #### PART II : Plotting [20 pts]
@@ -185,7 +185,7 @@ abline(a=coef(lm(mtcars$qsec~mtcars$hp))[1], b=coef(lm(mtcars$qsec~mtcars$hp))[2
 # Hint: first do the plot without adding the colors.
 color <- mtcars$am
 plot(mtcars$disp~mtcars$wt, xlab="weight of the car in lb/1000", ylab="engine displacement in cu. in.", col=color)
-??????????????????
+#??????????????????
 
 
 
@@ -212,7 +212,7 @@ abline(v=2.1)
 par(mfrow=c(1,1))
 plot(WorldBank$life.expectancy[WorldBank$year==1960]~WorldBank$fertility.rate[WorldBank$year==1960], pch=".", cex=5.5, col=WorldBank$region,
      xlab="fertility.rate", ylab="life.expectancy")
-plot(WorldBank$life.expectancy[WorldBank$year==2014]~WorldBank$fertility.rate[WorldBank$year==2014], pch=".", cex=5.5, col=WorldBank$region,
+plot(WorldBank$life.expectancy[WorldBank$year==2013]~WorldBank$fertility.rate[WorldBank$year==2013], pch=".", cex=5.5, col=WorldBank$region,
      xlab="fertility.rate", ylab="life.expectancy")
 
 # [4 pts]
@@ -242,15 +242,15 @@ max.rain <- sapply(rain, max)
 # __maximum absolute difference__ in rainfall on two consecutive days
 # Hint: you can use the function [diff()] to get the difference between entry i and i+1 in a vector 
 # and the function [abs()] for absolute value
-max.diff.rain <-sapply(rain, function(x) {abs(diff(rain[[x]]))} )
-????????
+#max.diff.rain <-sapply(rain, function(x) {abs(diff(rain[[x]]))} )
+#????????
 
 # [5 pts]
 # Create [prop.rain], a vector of length 5 where each entry is the 
 # number of rain days (i.e. rain > 0) as a function of total days
 
 prop.rain <- sapply(rain, function(x) (length(unlist(x>0)))/(length(unlist(x==0)) ))
-????????????????????  
+#????????????????????  
 
 # [3 pts]
 # Make a plot with 6 panels and plot the histogram of the rainfall for each weather station
@@ -336,7 +336,7 @@ PermDiff <- function(cases, controls, k=5000){
   controls1=sample(contrls, size=m, replace=T)
   return( mean(cases1)-mean(controls1))
 }
-????
+#????
 
 
 #################################################################
@@ -369,7 +369,7 @@ set.seed(123456)
 #    generate a ticket for each player in turn, if they had the winning numbers 
 #    increase the counter by 1
 
-function <- NumJackpot(k, B){
+NumJackpot <- function(k, B){
   counter=0
 game1 <- replicate(k, sample(1:19, size=3, replace=T))
 game <- replicate (B, game1)
@@ -381,10 +381,10 @@ n.jackpot=counter
 # For B = 5000 and each value of k = 10000, 50000, 100000, 500000
 # Plot a histogram of the output from NumJackpot (i.e. four histograms)
 
-hist(NumJackpot(10000, 5000))
-hist(NumJackpot(50000, 5000))
-hist(NumJackpot(100000, 5000))
-hist(NumJackpot(500000, 5000))
+hist(NumJackpot(100, 5000))
+hist(NumJackpot(500, 5000))
+hist(NumJackpot(1000, 50))
+hist(NumJackpot(5000, 50))
 
 #################################################################
 ##### PART VI : string manipulation and regular expressions [20 pts]
@@ -422,7 +422,7 @@ text5 <- grep("[[:punct:]]", phrases)
 # [2 pts]
 # Create a vector [phrases2] where you have replaced the first instance of the letter "a" in each word with "@"
 phrases2 <- gsub("a", "\\@", phrases)
-????
+#????
 
 # [2 pts]
 dna <- c("AGGATGATT", "AGCCTTAGC", "AGAGAGCT", "AGTTTCGTA", "CGTGGTGC", "CTAAGTGAC", "GTGGGACC", "GGTAGAGAC", "TAGATTACC")
