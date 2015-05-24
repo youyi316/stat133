@@ -381,8 +381,8 @@ n.jackpot=counter
 # For B = 5000 and each value of k = 10000, 50000, 100000, 500000
 # Plot a histogram of the output from NumJackpot (i.e. four histograms)
 
-hist(NumJackpot(100, 5000))
-hist(NumJackpot(500, 5000))
+hist(NumJackpot(100, 50))
+hist(NumJackpot(500, 50))
 hist(NumJackpot(1000, 50))
 hist(NumJackpot(5000, 50))
 
